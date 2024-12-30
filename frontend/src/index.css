@@ -1,0 +1,23 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+.content{
+  height: 80vh;
+}
+.register-page{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80vh;
+}
+.spinner-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1050;
+}
