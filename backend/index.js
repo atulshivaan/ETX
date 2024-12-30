@@ -5,6 +5,7 @@ import morgan from "morgan";
 
 import connectDB from "./config/Db.connection.js";
 import userRouter from "./routes/user.route.js";
+import transactionRouter from "./routes/transaction.routes.js";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -14,13 +15,14 @@ const port = process.env.PORT || 3000;
 
 // Middleware to parse JSON
 app.use(express.json());
-app.use(cors())
+app.use(cors({ origin: "http://localhost:5173" }))
 app.use(morgan("dev"))
 
 
 
 //routes
-app.use("/api/auth/",userRouter)
+app.use("/api/user", userRouter);
+app.use("/api/transaction", transactionRouter);
 
 
 

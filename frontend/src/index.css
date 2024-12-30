@@ -21,3 +21,11 @@
   background: rgba(255, 255, 255, 0.8);
   z-index: 1050;
 }
+
+.filters{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 20px;
+  box-shadow: 0 0 10px gray;
+}
