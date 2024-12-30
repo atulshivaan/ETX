@@ -1,7 +1,7 @@
 import { Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "../component/spinner/Spinner";
 
 const Register = () => {
@@ -20,6 +20,13 @@ const Register = () => {
       message.error(error.response?.data?.message || "Registration failed. Please try again.");
     }
   };
+
+  //prevent for loginuser
+  useEffect(()=>{
+    if(localStorage.getItem("user")){
+        navigate("/");
+    }
+  },[navigate]);
 
   return (
     <div className="register-page d-flex align-items-center justify-content-center vh-100 bg-light">

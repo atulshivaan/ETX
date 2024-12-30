@@ -1,7 +1,7 @@
 import { Form, Input, message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
+import { useState  , useEffect} from "react";
 import Spinner from "../component/spinner/Spinner";
 
 const Login = () => {
@@ -12,24 +12,30 @@ const Login = () => {
     try {
       setLoading(true);
       const { data } = await axios.post("/login", values);
+      console.log(data);
       
-      // Store only necessary user data
-      const userData = {
-        id: data.id,
-        name: data.name,
-        email: data.email,
-        token: data.token, // Example if token is returned
-      };
-      localStorage.setItem("user", JSON.stringify(userData));
-
-      message.success("Login Successfully");
       setLoading(false);
+      message.success("login success");
+      // Store only necessary user data
+      localStorage.setItem(
+        "user",
+        JSON.stringify({ ...data.user, password: "" })
+      );
+
+     
       navigate("/"); // Redirect to home page or dashboard
     } catch (error) {
       setLoading(false);
       message.error(error.response?.data?.message || "Invalid username or password");
     }
   };
+  //prevent for loginuser
+    useEffect(()=>{
+      if(localStorage.getItem("user")){
+          navigate("/");
+      }
+    },[navigate]);
+  
 
   return (
     <div className="login-page d-flex align-items-center justify-content-center vh-100 bg-light">

@@ -1,44 +1,70 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 const Header = () => {
+  const [loginUser, setLoginUser] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (user) {
+      try {
+        const parsedUser = JSON.parse(user);
+        setLoginUser(parsedUser);
+      } catch {
+        localStorage.removeItem("user");
+      }
+    }
+  }, []);
+
+  const logoutHandler = () => {
+    localStorage.removeItem("user");
+    message.success("Logout Successfully");
+    navigate("/userlogin");
+  };
+
   return (
-    <>
-      <nav className="navbar navbar-expand-lg bg-dark text-white">
-        <div className="container-fluid">
-          {/* Left-aligned brand */}
-          <Link className="navbar-brand text-white" to="/">
+    <nav className="navbar navbar-expand-lg bg-light">
+      <div className="container-fluid">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo01"
+          aria-controls="navbarTogglerDemo01"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon" />
+        </button>
+        <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <Link className="navbar-brand" to="/">
             ETX
           </Link>
-
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-
-          <div className="collapse navbar-collapse" id="navbarNav">
-            {/* Right-aligned navigation links */}
-            <ul className="navbar-nav ms-auto">
+          <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+            {loginUser ? (
+              <>
+                <li className="nav-item">
+                  <p className="nav-link">{loginUser.name || "Anonymous"}</p>
+                </li>
+                <li className="nav-item">
+                  <button className="btn btn-primary" onClick={logoutHandler}>
+                    Logout
+                  </button>
+                </li>
+              </>
+            ) : (
               <li className="nav-item">
-                <Link
-                  to="/user"
-                  className="nav-link active text-white"
-                  aria-current="page"
-                >
-                  User
+                <Link className="btn btn-primary" to="/userlogin">
+                  Login
                 </Link>
               </li>
-            </ul>
-          </div>
+            )}
+          </ul>
         </div>
-      </nav>
-    </>
+      </div>
+    </nav>
   );
 };
 
