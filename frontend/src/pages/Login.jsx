@@ -11,7 +11,7 @@ const Login = () => {
   const submitHandler = async (values) => {
     try {
       setLoading(true);
-      const { data } = await axios.post("/login", values);
+      const { data } = await axios.post("api/auth/login", values);
       console.log(data);
       
       setLoading(false);

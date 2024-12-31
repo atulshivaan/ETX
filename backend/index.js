@@ -2,10 +2,12 @@ import express from "express"
 import dotenv from "dotenv"
 import cors from "cors"
 import morgan from "morgan";
+import path from "path"
 
 import connectDB from "./config/Db.connection.js";
 import userRouter from "./routes/user.route.js";
 import transactionRouter from "./routes/transaction.routes.js";
+import exp from "constants";
 
 // Load environment variables from .env file
 dotenv.config();
@@ -21,9 +23,14 @@ app.use(morgan("dev"))
 
 
 //routes
-app.use("/api/user", userRouter);
-app.use("/api/transaction", transactionRouter);
+app.use("/api/auth/user", userRouter);
+app.use("/api/auth/transaction", transactionRouter);
 
+//statci file
+app.use(express.static(path.join(__dirname,"../frontend/dist")))
+app.get("*",function(req,res){
+res.sendFile(path.join(__dirname,"../frontend/dist/index.html"));
+})
 
 
 // Define a simple route

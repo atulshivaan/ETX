@@ -24,6 +24,14 @@ export default defineConfig({
         target: "http://localhost:3030/api/transaction/",
         changeOrigin: true,
       },
+      "/editTransaction": {
+        target: "http://localhost:3030/api/transaction/",
+        changeOrigin: true,
+      },
+      "/deleteTransaction": {
+        target: "http://localhost:3030/api/transaction/",
+        changeOrigin: true,
+      },
     },
   },
 });
