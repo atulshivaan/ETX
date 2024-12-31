@@ -7,11 +7,6 @@
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "description": "",
   "dependencies": {
     "backend": "file:",
     "bcrypt": "^5.1.1",
